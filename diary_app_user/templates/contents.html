@@ -1,0 +1,102 @@
+<!--진짜 로그인되면 나타나는 일기장 목록 페이지-->
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <style>
+        .menu {
+         float: right;
+         text-decoration: none;
+         padding-right: 10px
+        }
+
+        body {
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: 1.5em;
+        }
+
+        .menu {
+                float: right;
+                text-decoration: none;
+                padding-right: 10px
+                }
+
+                p { font-family:'Do Hyeon', sans-serif; }
+                .w { text-align: left; }
+                .x { text-align: right; }
+                .y { text-align: center; }
+                .z { text-align: justify; }
+
+        .textcolor {
+                    color:#FFBF00;
+        }
+        
+        .morecolor {
+                    color:#08088A;
+        }
+
+        .titlecolor{
+                        color:#585858;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><h1>DIARY</h1></a>
+        </div> 
+        <a href = "{%url 'contents'%}" class="menu titlecolor">Home</a>
+        <a href="{%url 'introduce'%}" class="menu titlecolor">INTRODUCE</a>
+        <a href="{%url 'new'%}" class="menu titlecolor">오늘의 일기 써볼까 ?</a>
+             
+        <a class="glyphicon glyphicon-log-in titlecolor" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+        <form id="logout" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %} <input type="hidden" />
+        </form>
+    </div>
+    </nav> <br><br>
+
+    <div class = "container">
+        <div class="card-deck">
+            {% for diary in posts %}
+                <div class="card mb-4" style="width: 18rem; height: 27rem">
+                    <div class="card-body" style="margin: 85px 15px">
+                        <h3 class="card-title y textcolor">{{diary.title}}</h3>
+                        <h5 class="card-subtitle mb-2 text-muted x">{{diary.date}}</h5><br>
+                        <p class="card-text">{{diary.summary}}
+                        <a href="{%url 'detail' diary.id%}" class="card-link morecolor" >...more</a><br>
+                        <hr>
+                        <div style="text-align: right;">
+                        <a href="{%url 'edit' diary.id%}" class="btn btn-light text-secondary ">수정</a>
+                        <a href="{%url 'delete' diary.id%}" class="btn btn-light text-secondary">삭제</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+    <br><br>
+    <div class = "container y">
+    
+        {%if posts.has_previous%}
+        <a href = "?page=1"> First </a>
+        <a href = "?page={{posts.previous_page_number}}">Previous</a>
+        {%endif%}
+
+        <span>{{posts.number}}</span>
+        <span>of</span>
+        <span>{{posts.paginator.num_pages}}</span>
+
+        {%if posts.has_next%}
+        <a href = "?page={{posts.next_page_number}}"> Next </a>
+        <a href = "?page={{posts.paginator.num_pages}}"> Last</a>
+        {%endif%}
+    </div>
+</body>
