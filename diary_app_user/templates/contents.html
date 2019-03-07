@@ -1,4 +1,4 @@
-<!--진짜 로그인되면 나타나는 일기장 목록 페이지-->
+adsfadsf<!--진짜 로그인되면 나타나는 일기장 목록 페이지-->
 <head>
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
     <meta charset="utf-8">
@@ -32,28 +32,28 @@
                 .z { text-align: justify; }
 
         .textcolor {
-                    color:#FFBF00;
+                    color:rgb(50, 6, 209);
         }
         
         .morecolor {
-                    color:#08088A;
+                    color:rgb(219, 18, 18);
         }
 
         .titlecolor{
-                        color:#585858;
+                        color:#f508fd;
         }
     </style>
 
 </head>
 <body>
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light" style="background-color: #cde4bd;">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><h1>DIARY</h1></a>
+            <a class="navbar-brand" href="#">
         </div> 
         <a href = "{%url 'contents'%}" class="menu titlecolor">Home</a>
         <a href="{%url 'introduce'%}" class="menu titlecolor">INTRODUCE</a>
-        <a href="{%url 'new'%}" class="menu titlecolor">오늘의 일기 써볼까 ?</a>
+        <a href="{%url 'new'%}" class="menu titlecolor">글쓰기</a>
              
         <a class="glyphicon glyphicon-log-in titlecolor" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
         <form id="logout" method="POST" action="{% url 'logout' %}">
